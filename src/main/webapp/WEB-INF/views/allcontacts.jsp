@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>University Enrollments</title>
+	<title>all contacts</title>
 
 	<style>
 		tr:first-child{
@@ -17,22 +17,24 @@
 
 
 <body>
-	<h2>List of Employees</h2>	
+	<h2>List of Contacts</h2>	
 	<table>
 		<tr>
-			<td>NAME</td><td>Joining Date</td><td>Salary</td><td>SSN</td><td></td>
+			<td>NAME</td><td>SURNAME</td><td>PHONE</td><td>EMAIL</td><td>HOBBY</td>
 		</tr>
-		<c:forEach items="${employees}" var="employee">
+		<c:forEach items="${contacts}" var="contact">
 			<tr>
-			<td>${employee.name}</td>
-			<td>${employee.joiningDate}</td>
-			<td>${employee.salary}</td>
-			<td><a href="<c:url value='/edit-${employee.ssn}-employee' />">${employee.ssn}</a></td>
-			<td><a href="<c:url value='/delete-${employee.ssn}-employee' />">delete</a></td>
+			<td>${contact.firstName}</td>
+			<td>${contact.lastName}</td>
+			<td>${contact.phone}</td>
+                        <td>${contact.email}</td>
+                        <td>${contact.hobby}</td>
+			<td><a href="<c:url value='/edit-${contact.phone}-contact' />">${contact.phone}</a></td>
+			<td><a href="<c:url value='/delete-${contact.id}-contact' />">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br/>
-	<a href="<c:url value='/new' />">Add New Employee</a>
+	<a href="<c:url value='/new' />">Add New Contact</a>
 </body>
 </html>

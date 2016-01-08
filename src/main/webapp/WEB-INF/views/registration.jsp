@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Employee Registration Form</title>
+	<title>Contact Registration Form</title>
 
 <style>
 
@@ -22,31 +22,37 @@
 
 	<h2>Registration Form</h2>
  
-	<form:form method="POST" modelAttribute="employee">
+	<form:form method="POST" modelAttribute="contact">
 		<form:input type="hidden" path="id" id="id"/>
 		<table>
 			<tr>
-				<td><label for="name">Name: </label> </td>
-				<td><form:input path="name" id="name"/></td>
-				<td><form:errors path="name" cssClass="error"/></td>
+				<td><label for="firstName">Name: </label> </td>
+				<td><form:input path="firstName" id="firstName"/></td>
+				<td><form:errors path="firstName" cssClass="error"/></td>
 		    </tr>
 	    
 			<tr>
-				<td><label for="joiningDate">Joining Date: </label> </td>
-				<td><form:input path="joiningDate" id="joiningDate"/></td>
-				<td><form:errors path="joiningDate" cssClass="error"/></td>
+				<td><label for="secondName">Surname: </label> </td>
+				<td><form:input path="secondName" id="secondName"/></td>
+				<td><form:errors path="secondName" cssClass="error"/></td>
 		    </tr>
 	
 			<tr>
-				<td><label for="salary">Salary: </label> </td>
-				<td><form:input path="salary" id="salary"/></td>
-				<td><form:errors path="salary" cssClass="error"/></td>
+				<td><label for="phone">Phone: </label> </td>
+				<td><form:input path="phone" id="phone"/></td>
+				<td><form:errors path="phone" cssClass="error"/></td>
 		    </tr>
 	
 			<tr>
-				<td><label for="ssn">SSN: </label> </td>
-				<td><form:input path="ssn" id="ssn"/></td>
-				<td><form:errors path="ssn" cssClass="error"/></td>
+				<td><label for="email">email: </label> </td>
+				<td><form:input path="email" id="email"/></td>
+				<td><form:errors path="email" cssClass="error"/></td>
+		    </tr>
+                    
+                    <tr>
+				<td><label for="hobby">Hobby: </label> </td>
+				<td><form:input path="hobby" id="hobby"/></td>
+				<td><form:errors path="hobby" cssClass="error"/></td>
 		    </tr>
 	
 			<tr>
@@ -65,6 +71,6 @@
 	</form:form>
 	<br/>
 	<br/>
-	Go back to <a href="<c:url value='/list' />">List of All Employees</a>
+	Go back to <a href="<c:url value='/list' />">List of All Contacts</a>
 </body>
 </html>
