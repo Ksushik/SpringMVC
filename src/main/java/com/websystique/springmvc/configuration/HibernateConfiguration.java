@@ -27,15 +27,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = { "classpath:application.properties" })
+@PropertySource(value = {"classpath:application.properties"})
 public class HibernateConfiguration {
 
+    /*
     @Autowired
     private Environment environment;
 
-
-	
-    /*@Bean
+    @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -51,7 +50,7 @@ public class HibernateConfiguration {
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         return properties;        
-    }**/
+    }
     
     @Bean
 	public DataSource dataSource() {
@@ -62,51 +61,50 @@ public class HibernateConfiguration {
 		dataSource.setPassword("");
 		return dataSource;
                 
-	}
-
-/*@Bean 
-public DataSource dataSource() {
-return new EmbeddedDatabaseBuilder()
-        .setType(EmbeddedDatabaseType.H2)
-        .addScript("db/sql/create-db.sql")
-        .addScript("db/sql/insert-data.sql")
-        .build(); 
-        }**/
-
-	private Properties hibernateProperties() {
-		Properties properties = new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-		properties.put("hibernate.hbm2ddl.auto", "create-drop");
-		return properties;
-	}
-    
+	}**/
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("db/sql/create-db.sql")
+                .addScript("db/sql/insert-data.sql")
+                .build();
+    }
+
+    @Bean
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        return properties;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
     }
-    
-     @Bean
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws IOException {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan("com.stoxa.springjavaconfig.Entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(additionalProperties());
+        em.setJpaProperties(hibernateProperties());
         return em;
     }
-    
+
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
-    
-     private Properties additionalProperties() {
+
+    /*private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
-    }
+    }**/
 }
-
