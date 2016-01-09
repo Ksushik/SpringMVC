@@ -26,7 +26,7 @@ public class Contact implements Comparable {
     private String lastName;
     private String phone;
     private String email;
-    private Hobby hobby;
+    private String hobby;
    
     public Contact() {
     }
@@ -45,7 +45,7 @@ public class Contact implements Comparable {
         this.setLastName(result.getString(2));
         this.setPhone(result.getString(3));
         this.setEmail(result.getString(4));
-        this.setHobby(result.getObject(5, Hobby.class));
+        this.setHobby(result.getString(5));
     }
     
     public Contact(MappedContact mappedContact) {
@@ -87,11 +87,11 @@ public class Contact implements Comparable {
         this.email = email;
     }
     
-    public Hobby getHobby() {
+    public String getHobby() {
         return hobby;
     }
  
-    public void setHobby(Hobby hobby) {
+    public void setHobby(String hobby) {
         this.hobby = hobby;
     }
  

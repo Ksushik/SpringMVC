@@ -5,10 +5,25 @@
  */
 package com.websystique.springmvc.model;
 
+import com.websystique.springmvc.entity.MappedHobby;
+
 /**
  *
  * @author ksu
  */
-public enum Hobby {
-    SPORTS, CRAFTS, COLLECTING, DANCING, LANGUAGES, TRAVEL, PLANT_GROWING, OTHER
+public class Hobby {
+    
+    private String hobbyName;
+
+    public String getHobbyName() {
+        return hobbyName;
+    }
+
+    public void setHobbyName(String hobbyName) {
+        this.hobbyName = hobbyName;
+    }
+    
+    Hobby (MappedHobby mappedHobby) {
+        this.hobbyName=mappedHobby.getHobbyName();
+    }
 }

@@ -27,5 +27,17 @@ public class MappedHobby {
     private long hobbyID;
     
     @Column(name="HOBBY_NAME", length=100, nullable=false)
-    private Hobby hobbyName;
+    private String hobbyName;
+
+    public String getHobbyName() {
+        return hobbyName;
+    }
+
+    public void setHobbyName(String hobbyName) {
+        this.hobbyName = hobbyName;
+    }
+    
+    MappedHobby (Hobby hobby){
+        this.hobbyName=hobby.getHobbyName();
+    }
 }

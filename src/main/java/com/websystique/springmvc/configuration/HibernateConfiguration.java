@@ -5,20 +5,16 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
-
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -50,7 +46,7 @@ public class HibernateConfiguration {
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         return properties;        
-    }
+    }**/
     
     @Bean
 	public DataSource dataSource() {
@@ -61,23 +57,23 @@ public class HibernateConfiguration {
 		dataSource.setPassword("");
 		return dataSource;
                 
-	}**/
-    @Bean
+	}
+    /*@Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("db/sql/create-db.sql")
                 .addScript("db/sql/insert-data.sql")
                 .build();
-    }
+    }**/
 
-    @Bean
-    private Properties hibernateProperties() {
+    /*@Bean
+    public Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         properties.put("hibernate.hbm2ddl.auto", "create-drop");
         return properties;
-    }
+    }**/
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
@@ -87,12 +83,14 @@ public class HibernateConfiguration {
     }
 
     @Bean
+    @Autowired
+    @DependsOn("dataSource")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws IOException {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.stoxa.springjavaconfig.Entity");
+        em.setPackagesToScan("com.websystique.springmvc.entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(hibernateProperties());
+        em.setJpaProperties(additionalProperties());
         return em;
     }
 
@@ -101,10 +99,10 @@ public class HibernateConfiguration {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    /*private Properties additionalProperties() {
+    private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
-    }**/
+    }
 }

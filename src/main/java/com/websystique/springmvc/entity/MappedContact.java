@@ -6,22 +6,16 @@
 package com.websystique.springmvc.entity;
 
 import com.websystique.springmvc.model.Contact;
-import com.websystique.springmvc.model.Hobby;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.Collator;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -51,8 +45,8 @@ public class MappedContact implements Comparable {
     @Column(name="CONTACT_EMAIL", length=100, nullable=false)
     private String email;
     
-    @ManyToOne(cascade = { CascadeType.ALL })  
-    private Hobby hobby;
+    //@ManyToOne(cascade = { CascadeType.ALL })  
+    private String hobby;
     
     public MappedContact() {
     }
@@ -64,7 +58,7 @@ public class MappedContact implements Comparable {
         this.email = email;
     }
     
-        public MappedContact(String firstName, String lastName, String phone, String email, Hobby hobby) {
+        public MappedContact(String firstName, String lastName, String phone, String email, String hobby) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -85,7 +79,7 @@ public class MappedContact implements Comparable {
         this.setLastName(result.getString(2));
         this.setPhone(result.getString(3));
         this.setEmail(result.getString(4));
-        this.setHobby(result.getObject(5, Hobby.class));
+        this.setHobby(result.getString(5));
     }
     
     public MappedContact(Contact contact) {
@@ -136,11 +130,11 @@ public class MappedContact implements Comparable {
         this.email = email;
     }
     
-    public Hobby getHobby() {
+    public String getHobby() {
         return hobby;
     }
  
-    public void setHobby(Hobby hobby) {
+    public void setHobby(String hobby) {
         this.hobby = hobby;
     }
  

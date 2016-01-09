@@ -22,7 +22,7 @@ public class ContactServiceImpl implements ContactService {
     private ContactDao dao;
 
     @Value("${maxSize}")
-    private int maxContactBookSize;
+    private String maxContactBookSize;
     private int contactsNumber;
     private ApplicationEventPublisher publisher;
 
@@ -104,14 +104,14 @@ public class ContactServiceImpl implements ContactService {
     /**
      * @return the maxContactBookSize
      */
-    public int getMaxContactBookSize() {
+    public String getMaxContactBookSize() {
         return maxContactBookSize;
     }
 
     /**
      * @param maxContactBookSize the maxContactBookSize to set
      */
-    public void setMaxContactBookSize(int maxContactBookSize) {
+    public void setMaxContactBookSize(String maxContactBookSize) {
         this.maxContactBookSize = maxContactBookSize;
     }
 }
